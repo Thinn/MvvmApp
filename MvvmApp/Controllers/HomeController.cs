@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MvvmApp.Models;
+using MvvmApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,8 +19,49 @@ namespace MvvmApp.Controllers
             _logger = logger;
         }
 
+        [Route("GetVm")]
+        public IActionResult GetVm()
+        {
+            var m = new OrderInfoVm()
+            {
+                Order = new Order()
+                {
+                    Id = 1001,
+                    Customer = new Customer
+                    {
+                        Id = 1,
+                        Name = "Ken Ling"
+                    },
+                    OrderNote = "This is the note",
+                    Products = new List<Product>()
+                    {
+                         new Product()
+                        {
+                            ID = 201,
+                            Name = "Product 1"
+                        },
+                         new Product()
+                         {
+                             ID = 203,
+                             Name = "Product 2"
+                         }
+                    }
+
+                }
+                ,
+                Profile = new Profile()
+                {
+                    Id = 100001,
+                    Hobby = "Play badminton"
+                }
+            };
+            return Json(m);
+        }
+
         public IActionResult Index()
         {
+            
+
             return View();
         }
 
